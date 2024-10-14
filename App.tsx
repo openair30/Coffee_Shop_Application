@@ -1,12 +1,7 @@
 import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import TabNavigator from './src/navigators/TabNavigator';
-import DetailsScreen from './src/screens/DetailsScreen';
-import PaymentScreen from './src/screens/PaymentScreen';
 import SplashScreen from 'react-native-splash-screen';
-
-const Stack = createNativeStackNavigator();
+import Stack from './src/navigators/Stack';
 
 const App = () => {
   useEffect(() => {
@@ -14,20 +9,11 @@ const App = () => {
   }, []);
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen
-          name="Tab"
-          component={TabNavigator}
-          options={{animation: 'slide_from_bottom'}}></Stack.Screen>
-        <Stack.Screen
-          name="Details"
-          component={DetailsScreen}
-          options={{animation: 'slide_from_bottom'}}></Stack.Screen>
-        <Stack.Screen
-          name="Payment"
-          component={PaymentScreen}
-          options={{animation: 'slide_from_bottom'}}></Stack.Screen>
-      </Stack.Navigator>
+      {/*This is a container that manages the navigation tree and state. */}
+      {/* it says that we have selected routes in the app and you can move in any of this container */}
+      {/* act as a context provider */}
+      {/* manages the navigation state of the entire application, ensuring that the navigation history is preserved */}
+      <Stack />
     </NavigationContainer>
   );
 };

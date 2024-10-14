@@ -3,10 +3,8 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   TextInput,
   TouchableOpacity,
-  View,
   ToastAndroid,
 } from 'react-native';
 import {useStore} from '../store/store';
@@ -23,11 +21,13 @@ import CustomIcon from '../components/CustomIcon';
 import {FlatList} from 'react-native';
 import CoffeeCard from '../components/CoffeeCard';
 import {Dimensions} from 'react-native';
+import Text from '../components/UI/Text';
+import View from '../components/UI/Box';
 
 const getCategoriesFromData = (data: any) => {
   let temp: any = {};
   for (let i = 0; i < data.length; i++) {
-    if (temp[data[i].name] == undefined) {
+    if (temp[data[i].name] === undefined) {
       temp[data[i].name] = 1;
     } else {
       temp[data[i].name]++;
@@ -39,10 +39,10 @@ const getCategoriesFromData = (data: any) => {
 };
 
 const getCoffeeList = (category: string, data: any) => {
-  if (category == 'All') {
+  if (category === 'All') {
     return data;
   } else {
-    let coffeelist = data.filter((item: any) => item.name == category);
+    let coffeelist = data.filter((item: any) => item.name === category);
     return coffeelist;
   }
 };
@@ -69,7 +69,7 @@ const HomeScreen = ({navigation}: any) => {
   const tabBarHeight = useBottomTabBarHeight();
 
   const searchCoffee = (search: string) => {
-    if (search != '') {
+    if (search !== '') {
       ListRef?.current?.scrollToOffset({
         animated: true,
         offset: 0,
@@ -130,13 +130,21 @@ const HomeScreen = ({navigation}: any) => {
         {/* App Header */}
         <HeaderBar />
 
-        <Text style={styles.ScreenTitle}>
+        <Text
+          fontSize={'size_28'}
+          fontFamily={'poppins_semibold'}
+          color={'primaryWhiteHex'}
+          pl={'space_30'}>
           Find the best{'\n'}coffee for you
         </Text>
 
         {/* Search Input */}
-
-        <View style={styles.InputContainerComponent}>
+        <View
+          flexDirection="row"
+          m="space_30"
+          bg="primaryDarkGreyHex"
+          alignItems="center"
+          borderRadius="radius_20">
           <TouchableOpacity
             onPress={() => {
               searchCoffee(searchText);
@@ -204,13 +212,13 @@ const HomeScreen = ({navigation}: any) => {
                 <Text
                   style={[
                     styles.CategoryText,
-                    categoryIndex.index == index
+                    categoryIndex.index === index
                       ? {color: COLORS.primaryOrangeHex}
                       : {},
                   ]}>
                   {data}
                 </Text>
-                {categoryIndex.index == index ? (
+                {categoryIndex.index === index ? (
                   <View style={styles.ActiveCategory} />
                 ) : (
                   <></>
